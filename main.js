@@ -1,6 +1,7 @@
 var __dataObject={};
 var __tempData="";
-var __debounceTimer=null;
+var __debounceTimer={};
+var __pendingRenderNodes=[];
 
 function assign(key, data){
     __dataObject[key]=data;
@@ -22,9 +23,9 @@ function resolve(func, async)
 {
     if (async)
         setTimeout(function(){
-            func.call(document.querySelector("body"));
+            func.call(document.querySelector("#main"));
         },0);
-    else func.call(document.querySelector("body"));
+    else func.call(document.querySelector("#main"));
 }
 
 function toggleClass(elem, className){
@@ -37,13 +38,25 @@ function delay(func, time){
     setTimeout(func, time);
 }
 function debounce(func, time){
-    if (__debounceTimer)
-        clearTimeout(__debounceTimer);
-    __debounceTimer=setTimeout(function(){
-        __debounceTimer=null;
+    if (__debounceTimer[func.prototype.name])
+        clearTimeout(__debounceTimer[func.prototype.name]);
+        __debounceTimer[func.prototype.name]=setTimeout(function(){
+            __debounceTimer[func.prototype.name]=null;
         func.call();
     }, time)
 }
+function GET(url, func){
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+        // Typical action to be performed when the document is ready:
+            func(xhttp.responseText);
+        }
+    };
+    xhttp.open("GET", url, true);
+    xhttp.send();
+}
+
 
 function detectChanges(){
     resolve(function (){
@@ -94,23 +107,57 @@ function detectChanges(){
                 else forElems[i].parentNode.removeChild(forElems[i]);
 
             let animationElems=this.querySelectorAll("[data-animation]");
+            let scrollTop= this.scrollTop;
+            let screenView= (this.scrollTop + window.innerHeight)*0.9;
             for (let i=0; i<animationElems.length; i++)
             {
                 let elem=animationElems[i];
-                let animationKey=elem.dataset["animation"];
-                    elem.removeAttribute("data-animation");
-                    let delayTime=0;
-                    if (elem.dataset["delay"])
-                    {
-                        delayTime=+elem.dataset["delay"];
-                        elem.removeAttribute("data-delay");
-                    }
-                    delay(function(){
-                        toggleClass(elem,animationKey);
-                    }, delayTime);
+                let currentOffset=elem.offsetTop;
+                if (currentOffset<scrollTop || currentOffset>screenView)
+                    __pendingRenderNodes.push(elem);
+                else{
+                    __renderAnimation(elem);
+                }
             }
         }
     },true);
+}
+
+function __scrollSpy(e){
+    let target=e.target;
+    debounce(function scrollSpy(){
+        if (__pendingRenderNodes && __pendingRenderNodes.length>0){
+            let offsetX=target.scrollLeft;
+            let scrollTop= target.scrollTop;
+            let screenView= (scrollTop + window.innerHeight)*0.9;
+            
+            for (let i=0; i<__pendingRenderNodes.length; i++)
+            {
+                let elem=__pendingRenderNodes[i];
+                let currentOffset=elem.offsetTop;
+                if (currentOffset>=scrollTop && currentOffset<=screenView){
+                    __pendingRenderNodes.splice(i,1);
+                    __renderAnimation(elem,0.2);
+                    i--;
+                }
+            }
+        }
+    },50);
+}
+function __renderAnimation(elem, reduce){
+    let animationKey=elem.dataset["animation"];
+    elem.removeAttribute("data-animation");
+    let delayTime=0;
+        if (elem.dataset["delay"])
+        {
+            delayTime=+elem.dataset["delay"];
+            elem.removeAttribute("data-delay");
+        }
+    if (reduce)
+        delayTime=delayTime*reduce;
+    delay(function(){
+        toggleClass(elem,animationKey);
+    }, delayTime);
 }
 
 document.addEventListener("DOMContentLoaded",function(){
@@ -123,11 +170,11 @@ document.addEventListener("DOMContentLoaded",function(){
     //     { skillname:"English", rating:"60%", delay: 300} 
     // ])
     detectChanges();
-    fetch("data/skills.json").then(
-        function (response){
-            console.log(response.clone().json());
-            assign("skills", response.clone().json());
-            debounce(detectChanges,400);
+    GET("data/skills.json", function (json){
+        console.log(json);
+        assign("skills", JSON.parse(json));
+        debounce(detectChanges,400);
     });
+    document.querySelector("#main").addEventListener("scroll",__scrollSpy);
 });
 
