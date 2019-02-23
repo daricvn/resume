@@ -66,8 +66,6 @@ function detectChanges(){
                 if (data()[forElems[i].dataset["for"]] && Array.isArray(data()[forElems[i].dataset["for"]]))
                 {
                     let elem=forElems[i];
-                    if (elem.dataset["emptyfor"])
-                        elem.style.display="";
                     let parent=elem.parentNode;
                     let sameChild=parent.querySelectorAll("[data-for="+elem.dataset.for+"]");
                     let arr=data()[elem.dataset["for"]];
@@ -105,10 +103,6 @@ function detectChanges(){
                     if (sameChild.length>arr.length)
                         for (let j=arr.length; j<sameChild.length; j++)
                             parent.removeChild(sameChild[j]);
-                }
-                else { 
-                    forElems[i].style.display="none";
-                    forElems[i].dataset["emptyfor"]=true;
                 }
 
             let animationElems=this.querySelectorAll("[data-animation]");
