@@ -1,5 +1,6 @@
 var __dataObject={};
 var __tempData="";
+var __debounceTimer=null;
 
 function assign(key, data){
     __dataObject[key]=data;
@@ -35,6 +36,14 @@ function toggleClass(elem, className){
 function delay(func, time){
     setTimeout(func, time);
 }
+function debounce(func, time){
+    if (__debounceTimer)
+        clearTimeout(__debounceTimer);
+    __debounceTimer=setTimeout(function(){
+        __debounceTimer=null;
+        func.call();
+    }, time)
+}
 
 function GET(file, callback){
     try{
@@ -46,6 +55,7 @@ function GET(file, callback){
                 // Required use of an anonymous callback 
                 // as .open() will NOT return a value but simply returns undefined in asynchronous mode
                 callback(xobj.responseText);
+                debounce(detectChanges,500);
             }
         };
         xobj.send(null);
@@ -129,7 +139,6 @@ document.addEventListener("DOMContentLoaded",function(){
         { skillname:"English", rating:"60%", delay: 300} 
     ])
     detectChanges();
-    delay(detectChanges,2000);
    GET("data/skills.json",function (data){
        assign("skills", JSON.parse(data));
    })
