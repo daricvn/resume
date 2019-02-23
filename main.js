@@ -11,7 +11,6 @@ function data(){
 }
 function isDataChanged(){
     let data=JSON.stringify(__dataObject);
-    console.log(data);
     if (__tempData!=data)
         {
             __tempData=data;
@@ -67,6 +66,8 @@ function detectChanges(){
                 if (data()[forElems[i].dataset["for"]] && Array.isArray(data()[forElems[i].dataset["for"]]))
                 {
                     let elem=forElems[i];
+                    if (elem.dataset["emptyfor"])
+                        elem.style.display="";
                     let parent=elem.parentNode;
                     let sameChild=parent.querySelectorAll("[data-for="+elem.dataset.for+"]");
                     let arr=data()[elem.dataset["for"]];
@@ -105,7 +106,10 @@ function detectChanges(){
                         for (let j=arr.length; j<sameChild.length; j++)
                             parent.removeChild(sameChild[j]);
                 }
-                else forElems[i].parentNode.removeChild(forElems[i]);
+                else { 
+                    forElems[i].style.display="none";
+                    forElems[i].dataset["emptyfor"]=true;
+                }
 
             let animationElems=this.querySelectorAll("[data-animation]");
             let scrollTop= this.scrollTop;
