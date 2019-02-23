@@ -84,7 +84,7 @@ function detectChanges(){
                             if (arr[j][childElems[k].dataset.key])
                                 if (childElems[k].dataset.style){
                                     let value=arr[j][childElems[k].dataset.key]+"";
-                                    let target=childElems[k];//.style[childElems[k].dataset.style];
+                                    let target=childElems[k];
                                     if (childElems[k].dataset["delaykey"] && arr[j][childElems[k].dataset["delaykey"]])
                                     {
                                         childElems[k].dataset.delay=arr[j][childElems[k].dataset["delaykey"]];
@@ -171,7 +171,6 @@ document.addEventListener("DOMContentLoaded",function(){
     // ])
     detectChanges();
     GET("data/skills.json", function (json){
-        console.log(JSON.parse(json));
         assign("skills", JSON.parse(json));
         detectChanges();
     });
