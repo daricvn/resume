@@ -122,7 +122,9 @@ document.addEventListener("DOMContentLoaded",function(){
     detectChanges();
     fetch("data/skills.json").then(
         function (response){
+            console.log(response.json());
             assign("skills", response.json());
+            debounce(detectChanges,400);
     });
 });
 

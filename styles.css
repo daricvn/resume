@@ -391,12 +391,25 @@ div#main{
     }
 }
 
-@media screen and (max-width: 664px){
+@media screen and (max-width: 584px){
     .container{
         width: 96%;
     }
+    
+    .avatar{
+        border: 8px solid white;
+        width: 104px;
+        height: 106px;
+        display: block;
+        margin: 0 auto;
+        float: none;
+        border-radius: 15px;
+        position: absolute;
+        right: 3%;
+    }
     .info{
-        font-size: 14pt;
+        font-size: 11pt;
+        padding-left: 3px !important;
     }
 }
 
