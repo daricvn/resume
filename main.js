@@ -45,25 +45,6 @@ function debounce(func, time){
     }, time)
 }
 
-function GET(file, callback){
-    try{
-        var xobj = new XMLHttpRequest();
-        xobj.overrideMimeType("application/json");
-        xobj.open('GET', file, true);
-        xobj.onreadystatechange = function() {
-            if (xobj.readyState === 4 && xobj.status === "200") {
-                // Required use of an anonymous callback 
-                // as .open() will NOT return a value but simply returns undefined in asynchronous mode
-                callback(xobj.responseText);
-                debounce(detectChanges,500);
-            }
-        };
-        xobj.send(null);
-    }
-    catch (e){
-    }
-}
-
 function detectChanges(){
     resolve(function (){
         if (isDataChanged()){
@@ -130,17 +111,18 @@ function detectChanges(){
 }
 
 document.addEventListener("DOMContentLoaded",function(){
-    assign("skills",[ 
-        {skillname:"HTML & Javascript", rating: "90%", delay: 200},
-        { skillname:"C#", rating:"70%", delay: 300},
-        { skillname:"ASP.NET Core", rating:"60%", delay: 200} ,
-        { skillname:"Angular", rating:"60%", delay: 100} ,
-        { skillname:"MongoDB", rating:"50%", delay: 500} ,
-        { skillname:"English", rating:"60%", delay: 300} 
-    ])
+    // assign("skills",[ 
+    //     {skillname:"HTML & Javascript", rating: "90%", delay: 200},
+    //     { skillname:"C#", rating:"70%", delay: 300},
+    //     { skillname:"ASP.NET Core", rating:"60%", delay: 200} ,
+    //     { skillname:"Angular", rating:"60%", delay: 100} ,
+    //     { skillname:"MongoDB", rating:"50%", delay: 500} ,
+    //     { skillname:"English", rating:"60%", delay: 300} 
+    // ])
     detectChanges();
-   GET("data/skills.json",function (data){
-       assign("skills", JSON.parse(data));
-   })
+    fetch("data/skills.json").then(
+        function (response){
+            assign("skills", response.json());
+    });
 });
 

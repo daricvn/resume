@@ -1,7 +1,8 @@
 [
-    { "skillname":"HTML & Javascript", "rating":"100%", "delay":"100" },
-    { "skillname":"C#", "rating":"70%", "delay":"300" },
+    { "skillname":"HTML & Javascript", "rating":"95%", "delay":"100" },
+    { "skillname":"C#", "rating":"80%", "delay":"300" },
     { "skillname":"Angular", "rating":"70%", "delay":"200" },
     { "skillname":"ASP.NET Core", "rating":"70%", "delay":"400" },
-    { "skillname":"English", "rating":"50%", "delay":"100" }
+    { "skillname":"MongoDB", "rating":"50%", "delay": 500} ,
+    { "skillname":"English", "rating":"60%", "delay":"100" }
 ]
