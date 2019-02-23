@@ -171,9 +171,9 @@ document.addEventListener("DOMContentLoaded",function(){
     // ])
     detectChanges();
     GET("data/skills.json", function (json){
-        console.log(json);
+        console.log(JSON.parse(json));
         assign("skills", JSON.parse(json));
-        debounce(detectChanges,400);
+        detectChanges();
     });
     document.querySelector("#main").addEventListener("scroll",__scrollSpy);
 });
