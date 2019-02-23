@@ -118,6 +118,10 @@ function detectChanges(){
                     __renderAnimation(elem);
                 }
             }
+
+            let textElems=this.querySelectorAll("[data-text]");
+            for (let i=0; i<textElems.length; i++)
+                __renderText(textElems[i]);
         }
     },true);
 }
@@ -158,20 +162,18 @@ function __renderAnimation(elem, reduce){
         toggleClass(elem,animationKey);
     }, delayTime);
 }
+function __renderText(elem){
+    let text=data()[elem.dataset["text"]];
+    if (text){
+        elem.innerHTML=text;
+    }
+}
 
 document.addEventListener("DOMContentLoaded",function(){
-    // assign("skills",[ 
-    //     {skillname:"HTML & Javascript", rating: "90%", delay: 200},
-    //     { skillname:"C#", rating:"70%", delay: 300},
-    //     { skillname:"ASP.NET Core", rating:"60%", delay: 200} ,
-    //     { skillname:"Angular", rating:"60%", delay: 100} ,
-    //     { skillname:"MongoDB", rating:"50%", delay: 500} ,
-    //     { skillname:"English", rating:"60%", delay: 300} 
-    // ])
     detectChanges();
     GET("data/skills.json", function (json){
         assign("skills", JSON.parse(json));
-        detectChanges();
+        debounce(detectChanges,200);
     });
     document.querySelector("#main").addEventListener("scroll",__scrollSpy);
 });
