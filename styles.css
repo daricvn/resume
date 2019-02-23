@@ -179,6 +179,9 @@ div#main{
     width: 80%;
     height: auto;
     transition: 0.2s linear;
+    margin-bottom: 100px;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 .avatar{
