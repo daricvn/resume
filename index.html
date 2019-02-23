@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
+    <title>Darick's Résumé</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type="text/css">
+        /* fallback */
+        @font-face {
+            font-family: 'Material Icons';
+            font-style: normal;
+            font-weight: 400;
+            src: url(fonts/material-icons.woff2) format('woff2');
+        }
+
+        .material-icons {
+            font-family: 'Material Icons';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            font-feature-settings: 'liga';
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .material-icons.large{
+            font-size: 32px;
+        }
+        .material-icons.small{
+            font-size: 16px;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" media="screen" href="styles.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="avatar.css" />
+</head>
+<body>
+    <div id="main">
+        <div class="container">
+            <div class="block text-white text-shadow depth-1 verdana" style="overflow:hidden">
+                <div class="avatar float-left zoom-in" data-animation="zoom-in" data-delay="50"></div>
+                <div class="info float-left no-select" style="padding-left: 25px; padding-top: 25px;">
+                    <div class="text-field hidden-right" data-animation="hidden-right" data-delay="0">
+                        <i class="material-icons left large float-left">account_circle</i>
+                        <span class="bold" data-text="fullname">Fullname: </span>
+                        Darick Nguyễn
+                    </div><br />
+                    <div class="text-field hidden-right margin-left margin-ratio no-margin-on-medium" data-animation="hidden-right" data-delay="300">
+                        <i class="material-icons left large float-left">class</i>
+                        <span class="bold" >LinkedIn: </span>
+                        <a href="https://www.linkedin.com/in/daricvn/" style="color: lightblue">daricvn</a>
+                    </div><br />
+                    <div class="text-field hidden-right margin-left margin-large margin-ratio no-margin-on-medium"  data-animation="hidden-right" data-delay="500">
+                        <i class="material-icons left large float-left">mail</i>
+                        <span class="bold" data-text="email">Email: </span>
+                        <a href="mailto:daricvn@gmail.com" style="color: lightblue">daricvn@gmail.com</a>
+                    </div><br />
+                    <div class="text-field hidden-right margin-left margin-ratio no-margin-on-medium"  data-animation="hidden-right" data-delay="700">
+                        <i class="material-icons left large float-left">mail</i>
+                        <span class="bold" data-text="phone">Phone: </span>
+                        +8485.885.6960
+                    </div>
+                    <div class="job-title hidden-right"  data-animation="hidden-right" data-delay="900">
+                        <span class="margin-left no-margin-on-medium upper-case bold" style="font-size: 20pt">
+                            Fullstack Developer
+                        </span>
+                    </div>
+                    <hr class="hide-on-large" />
+                </div>
+            </div>
+            <div class="desc margin-top margin-large arial" style="width: 100%;">
+                <div class="row">
+                    <div class="col animation-box slow content-box s12 l8 white center hidden-bottom" 
+                        data-animation="hidden-bottom" data-delay="1200" style="height: 1000px;">
+                        <h3 class="upper-case">ABOUT</h3>
+                    </div>
+                    <div class="col animation-box slow content-box white s6 l4 float-left flip-h-out" style="height: auto; padding-left: 21px;"
+                        data-animation="flip-h-out" data-delay="1500">
+                        <div class="full-width center">
+                            <h3 class="upper-case">SKILLS</h3>
+                        </div>
+                        <div class="row" data-for="skills">
+                            <h6 class="upper-case" data-key="skillname">Java</h6>
+                            <div class="progressbar">
+                                <div class="current" style="width: 0" data-key="rating" data-style="width" data-delaykey="delay"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="polyfill.min.js" type="text/javascript"></script>
+    <script src="main.js"></script>
+</body>
+</html>

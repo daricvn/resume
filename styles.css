@@ -1,0 +1,413 @@
+body{
+    overflow: auto;
+    height: 100%;
+    margin: 0px;
+}
+/* Type css  */
+
+.verdana{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.impact{
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.arial{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.no-select{
+    user-select: none;
+}
+
+.float-left{
+    float: left;
+}
+
+.display-none{
+    display:none;
+}
+.center{
+    text-align: center;
+}
+.left{
+    text-align: left;
+}
+.right{
+    text-align: right;
+}
+.v-middle{
+    vertical-align: middle;
+}
+
+h1{
+    font-size: 32pt;
+}
+
+h2{
+    font-size: 27pt;
+}
+
+h3{
+    font-size: 21pt;
+}
+
+h4{
+    font-size: 18pt;
+}
+
+h5{
+    font-size: 15pt;
+    margin: 15px 0;
+}
+h6{
+    font-size: 12pt;
+    margin: 10pt 0;
+}
+
+.block{
+    display: block;
+}
+
+.bold{
+    font-weight: bold;
+}
+
+.margin-left{
+    margin-left: 15px;
+}
+.margin-left.margin-ratio{
+    margin-left: 8%;
+}
+.margin-left.margin-small{
+    margin-left: 10px;
+}
+.margin-left.margin-ratio.margin-small{
+    margin-left: 5%;
+}
+.margin-left.margin-large{
+    margin-left: 25px;
+}
+.margin-left.margin-ratio.margin-large{
+    margin-left: 12%;
+}
+
+.margin-top{
+    margin-top: 15px;
+}
+.margin-top.margin-ratio{
+    margin-top: 8%;
+}
+.margin-top.margin-small{
+    margin-top: 10px;
+}
+.margin-top.margin-ratio.margin-small{
+    margin-top: 5%;
+}
+.margin-top.margin-large{
+    margin-top: 25px;
+}
+.margin-top.margin-ratio.margin-large{
+    margin-top: 12%;
+}
+
+.upper-case{
+    text-transform: uppercase;
+}
+.capitalize{
+    text-transform: capitalize;
+}
+
+.white{
+    background-color: white;
+}
+
+.text-white{
+    color: white;
+}
+.text-shadow.depth-0{
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.34);
+}
+.text-shadow.depth-1{
+    text-shadow: 3px 2px 2px rgba(0,0,0,0.32);
+}
+.text-shadow.depth-2{
+    text-shadow: 4px 3px 3px rgba(0,0,0,0.31);
+}
+
+.box-shadow.depth-0{
+    box-shadow: 1px 1px 1px rgba(0,0,0,0.34);
+}
+.box-shadow.depth-1{
+    box-shadow: 3px 2px 2px rgba(0,0,0,0.32);
+}
+.box-shadow.depth-2{
+    box-shadow: 4px 3px 3px rgba(0,0,0,0.31);
+}
+
+.hide-on-large{
+    display: none;
+}
+
+.full-width{
+    width: 100%;
+}
+
+.auto-height{
+    height: auto;
+    clear: both;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Specific design */
+
+div#main{
+    background-color: gray;
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: block;
+    padding-top: 45px;
+    margin: 0px;
+}
+
+.container{
+    margin: 0 auto;
+    width: 80%;
+    height: auto;
+    transition: 0.2s linear;
+}
+
+.avatar{
+    border: 12px solid white;
+    box-shadow: 2px 2px 3px rgba(0,0,0,0.3);
+    transition: 0.3s all cubic-bezier(.34,.81,.21,1.15);
+    width: 244px;
+    height: 246px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+}
+
+.avatar:hover{
+    box-shadow: 3px 4px 4px rgba(0,0,0,0.4);
+    transform: translate(-1px,-1px);
+}
+
+.text-field{
+    display: inline-block;
+    height: 36px;
+    line-height: 36px;
+    box-sizing: border-box;
+    vertical-align: middle;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-bottom: 6px;
+    transition: 0.5s cubic-bezier(.34,.81,.15,1.08);
+}
+
+.hidden-right{
+    opacity: 0;
+    transform: translateX(140px);
+}
+
+.hidden-bottom{
+    opacity: 0;
+    transform: translateY(100px);
+}
+
+.zoom-in{
+    opacity: 0;
+    transform: scale(0);
+}
+.flip-h-out{
+    opacity: 0;
+    transform: scaleX(-0.6) translateY(50px);
+}
+
+.text-field > span{
+    display: inline-block;
+    height: 36px;
+    line-height: 36px;
+}
+.text-field .material-icons{
+    line-height: inherit;
+    margin-right: 5px;
+}
+
+.progressbar{
+    display:block;
+    height: 12px;
+    width: 100%;
+    background-color: lightblue;
+    overflow: visible;
+}
+.progressbar > .current{
+    height: 12px;
+    background-color: dodgerblue;
+    transition: 0.6s cubic-bezier(.5,.87,.62,1.12) all;
+}
+
+.info{
+    font-size: 18pt;
+}
+
+.job-title{
+    margin-top: 10px;
+    transition: 0.6s all cubic-bezier(.34,.81,.15,1.08);
+}
+
+.row{
+    display: block;
+    margin-bottom: 5px;
+    position: relative;
+}
+
+.row > .col{
+    box-sizing: border-box;
+    display: inline-block;
+    height: auto;
+    border: 5px solid gray;
+}
+
+.col.content-box{
+    padding: 12px 20px;
+}
+
+.col.s1{
+    width: 8.3%;
+}
+.col.s2{
+    width: 16.6%;
+}
+.col.s3{
+    width: 25%;
+}
+.col.s4{
+    width: 33.3%;
+}
+.col.s5{
+    width: 41.6%;
+}
+.col.s6{
+    width: 50%;
+}
+.col.s7{
+    width: 58.3%;
+}
+.col.s8{
+    width: 66.6%;
+}
+.col.s9{
+    width: 75%;
+}
+.col.s10{
+    width: 83.3%;
+}
+.col.s11{
+    width: 91.7%;
+}
+.col.s12{
+    width: 100%;
+}
+
+/* Responsive */
+@media screen and (min-width: 992px){
+    .col.l1{
+        width: 8.3%;
+    }
+    .col.l2{
+        width: 16.6%;
+    }
+    .col.l3{
+        width: 25%;
+    }
+    .col.l4{
+        width: 33.3%;
+    }
+    .col.l5{
+        width: 41.6%;
+    }
+    .col.l6{
+        width: 50%;
+    }
+    .col.l7{
+        width: 58.3%;
+    }
+    .col.l8{
+        width: 66.6%;
+    }
+    .col.l9{
+        width: 75%;
+    }
+    .col.l10{
+        width: 83.3%;
+    }
+    .col.l11{
+        width: 91.7%;
+    }
+    .col.l12{
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 992px){
+    .container{
+        width: 90%;
+    }
+
+    .avatar{
+        border: 8px solid white;
+        width: 164px;
+        height: 166px;
+        display: block;
+        margin: 0 auto;
+        float: none;
+        border-radius: 15px;
+        position: absolute;
+        right: 5%;
+    }
+
+
+    .margin-left.no-margin-on-medium{
+        margin-left: 0px !important;
+    }
+    .hide-on-large{
+        display: inherit;
+    }
+
+    .info{
+        width: 100%;
+    }
+
+    .col.full-on-medium{
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 664px){
+    .container{
+        width: 96%;
+    }
+    .info{
+        font-size: 14pt;
+    }
+}
+
+/* Animation css  */
+
+.animation-box{
+    transition: 0.5s cubic-bezier(.34,.81,.21,1.15);
+    transition-property: opacity, transform;
+}
+.animation-box.fast{
+    transition: 0.3s cubic-bezier(.34,.81,.21,1.15);
+    transition-property: opacity, transform;
+}
+.animation-box.slow{
+    transition: 0.6s ease-in-out;
+    transition-property: opacity, transform;
+}

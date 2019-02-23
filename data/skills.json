@@ -1,0 +1,7 @@
+[
+    { "skillname":"HTML & Javascript", "rating":"100%", "delay":"100" },
+    { "skillname":"C#", "rating":"70%", "delay":"300" },
+    { "skillname":"Angular", "rating":"70%", "delay":"200" },
+    { "skillname":"ASP.NET Core", "rating":"70%", "delay":"400" },
+    { "skillname":"English", "rating":"50%", "delay":"100" }
+]
