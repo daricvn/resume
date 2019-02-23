@@ -87,6 +87,9 @@ function detectChanges(){
                                     childElems[k].innerHTML=arr[j][childElems[k].dataset.key];
                             }
                     }
+                    if (sameChild.length>arr.length)
+                        for (let j=arr.length; j<sameChild.length; j++)
+                            parent.removeChild(sameChild[j]);
                 }
                 else forElems[i].parentNode.removeChild(forElems[i]);
 
@@ -122,8 +125,8 @@ document.addEventListener("DOMContentLoaded",function(){
     detectChanges();
     fetch("data/skills.json").then(
         function (response){
-            console.log(response.json());
-            assign("skills", response.json());
+            console.log(response.clone().json());
+            assign("skills", response.clone().json());
             debounce(detectChanges,400);
     });
 });
