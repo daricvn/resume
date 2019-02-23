@@ -11,6 +11,7 @@ function data(){
 }
 function isDataChanged(){
     let data=JSON.stringify(__dataObject);
+    console.log(data);
     if (__tempData!=data)
         {
             __tempData=data;
