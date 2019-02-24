@@ -1,11 +1,40 @@
+// This script is designed by Darick Nguyen
+// Visit daricvn.github.io for more info!
+// Contact: daricvn@gmail.com
 var __dataObject={};
 var __tempData="";
 var __debounceTimer={};
 var __pendingRenderNodes=[];
 
+// Random unique ID
+var __char="qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
+function __generateUniqueID(elem){
+    let time=Math.round((new Date()).getTime()/1000);
+    let char=Math.floor(Math.random()*__char.length);
+    let rndChar="";
+    while (rndChar.length<=5){
+        rndChar+=__char[char];
+        char=Math.floor(Math.random()*__char.length);
+    }
+    elem.setAttribute("_js_content",rndChar+time);
+}
+function __getUniqueID(elem){
+    if (elem.hasAttribute("_js_content"))
+        return elem.getAttribute("_js_content");
+    return null;
+}
+function clone(elem){
+    let node= elem.cloneNode(true);
+    if (__getUniqueID(node))
+        node.removeAttribute("_js_content");
+    return node;
+}
+
+// Assign trackable data
 function assign(key, data){
     __dataObject[key]=data;
 }
+// Get trackable data from key
 function data(key){
     if (key.indexOf(".")<0)
         return __dataObject[key];
@@ -18,6 +47,8 @@ function data(key){
         return result;
     }
 }
+
+// Detect if trackable data is changed
 function isDataChanged(){
     let data=JSON.stringify(__dataObject);
     if (__tempData!=data)
@@ -28,6 +59,7 @@ function isDataChanged(){
     return false;
 }
 
+// Async resolve a function
 function resolve(func, async)
 {
     if (async)
@@ -37,15 +69,18 @@ function resolve(func, async)
     else func.call(document.querySelector("#main"));
 }
 
+// Toggle class
 function toggleClass(elem, className){
     if (elem.className.indexOf(className)>=0)
         elem.className=elem.className.replace(className,"").trim();
     else elem.className+=" "+className;
 }
 
+// Delay a function call
 function delay(func, time){
     setTimeout(func, time);
 }
+// Debounce a function call
 function debounce(func, time){
     if (__debounceTimer[func.prototype.name])
         clearTimeout(__debounceTimer[func.prototype.name]);
@@ -54,6 +89,8 @@ function debounce(func, time){
         func.call();
     }, time)
 }
+
+// GET API
 function GET(url, func){
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
@@ -66,27 +103,36 @@ function GET(url, func){
     xhttp.send();
 }
 
-
+// Detect change from trackable data and render it to UI
 function detectChanges(){
     resolve(function (){
         if (isDataChanged()){
+            let scrollTop= this.scrollTop;
+            let screenView= (this.scrollTop + window.innerHeight);
             let forElems = this.querySelectorAll("[data-for]");
             for (let i=0; i<forElems.length; i++)
                 if (data(forElems[i].dataset["for"]) && Array.isArray(data(forElems[i].dataset["for"])))
                 {
                     let elem=forElems[i];
+                    if (!__getUniqueID(elem))
+                        __generateUniqueID(elem);
                     let parent=elem.parentNode;
-                    let sameChild=parent.querySelectorAll("[data-for="+elem.dataset.for+"]");
+                    let sameChild=parent.querySelectorAll(elem.tagName+"[manipulated="+__getUniqueID(elem)+"]");
                     let arr=data(elem.dataset["for"]);
                     for (let j=0; j<arr.length; j++)
                     {
                         let nextEle=null;
-                        if (j<= sameChild.length && sameChild[j]){
-                            nextEle=sameChild[j];
+                        if (j==0)
+                            nextEle=elem;
+                        else
+                        if (j<= sameChild.length && sameChild[j-1]){
+                            nextEle=sameChild[j-1];
                         }
                         else{
-                            nextEle=elem.cloneNode(true);
+                            nextEle=clone(elem);
+                            nextEle.removeAttribute("data-for","");
                             parent.appendChild(nextEle);
+                            nextEle.setAttribute("manipulated",__getUniqueID(elem));
                         }
                         let childElems=nextEle.querySelectorAll("[data-key]");
                         for (let k=0; k< childElems.length; k++){
@@ -101,26 +147,31 @@ function detectChanges(){
                                     let delayTime=childElems[k].dataset.delay?+childElems[k].dataset.delay:100;
                                     if (parent.dataset.delay)
                                         delayTime += + parent.dataset.delay + 400;
-                                    delay(function(){
-                                        target.style[target.dataset.style]=value;
-                                    }, delayTime);
+                                    var elemTop=elem.getBoundingClientRect().top +this.scrollTop;
+                                    if (elemTop<scrollTop || elemTop>screenView)
+                                    {
+                                        target.dataset["styleValue"]=value;
+                                        __pendingRenderNodes.push(target);
+                                    }
+                                    else
+                                        delay(function(){
+                                            target.style[target.dataset.style]=value;
+                                        }, delayTime);
                                 }
                                 else
                                     childElems[k].innerHTML=arr[j][childElems[k].dataset.key];
                             }
                     }
-                    if (sameChild.length>arr.length)
-                        for (let j=arr.length; j<sameChild.length; j++)
-                            parent.removeChild(sameChild[j]);
+                    if (sameChild.length>arr.length-1)
+                        for (let j=arr.length; j<=sameChild.length; j++)
+                            parent.removeChild(sameChild[j-1]);
                 }
 
             let animationElems=this.querySelectorAll("[data-animation]");
-            let scrollTop= this.scrollTop;
-            let screenView= (this.scrollTop + window.innerHeight)*0.9;
             for (let i=0; i<animationElems.length; i++)
             {
                 let elem=animationElems[i];
-                let currentOffset=elem.offsetTop;
+                let currentOffset=elem.getBoundingClientRect().top + this.scrollTop;
                 if (currentOffset<scrollTop || currentOffset>screenView)
                     __pendingRenderNodes.push(elem);
                 else{
@@ -141,15 +192,20 @@ function __scrollSpy(e){
         if (__pendingRenderNodes && __pendingRenderNodes.length>0){
             let offsetX=target.scrollLeft;
             let scrollTop= target.scrollTop;
-            let screenView= (scrollTop + window.innerHeight)*0.9;
+            let screenView= (scrollTop + window.innerHeight);
             
             for (let i=0; i<__pendingRenderNodes.length; i++)
             {
                 let elem=__pendingRenderNodes[i];
-                let currentOffset=elem.offsetTop;
+                let currentOffset=elem.getBoundingClientRect().top + target.scrollTop - 100;
                 if (currentOffset>=scrollTop && currentOffset<=screenView){
                     __pendingRenderNodes.splice(i,1);
-                    __renderAnimation(elem,0.2);
+                    if (elem.hasAttribute("data-animation")){
+                        __renderAnimation(elem,0.2);
+                    }
+                    if (elem.hasAttribute("data-style")){
+                        __renderStyle(elem,0.6);
+                    }
                     i--;
                 }
             }
@@ -180,6 +236,29 @@ function __renderAnimation(elem, reduce){
     delay(function(){
         toggleClass(elem,animationKey);
     }, delayTime);
+}
+
+function __renderStyle(elem, reduce){
+    let styleKey=elem.dataset.style;
+    let dataValue=elem.dataset["styleValue"];
+    let delayTime=+elem.dataset["delay"]+100;
+    if (elem.parentNode)
+        {
+            let parent=elem.parentNode;
+            while (parent && parent.tagName!="body" && parent.id!="main")
+            {
+                if (parent.dataset && parent.dataset.delay)
+                    delayTime+=+parent.dataset.delay;
+                parent=parent.parentNode;
+            }
+        }
+    if (reduce)
+        delayTime=delayTime*reduce;
+    elem.removeAttribute("data-style-value");
+    elem.removeAttribute("data-delay");
+    delay(function(){
+        elem.style[styleKey]=dataValue;
+    }, delayTime)
 }
 function __renderText(elem){
     let text=data(elem.dataset["text"]);
