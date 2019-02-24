@@ -130,7 +130,7 @@ function detectChanges(){
                     let parent=elem.parentNode;
                     let sameChild=parent.querySelectorAll(elem.tagName+"[manipulated="+__getUniqueID(elem)+"]");
                     let arr=data(elem.dataset["for"]);
-                    for (let j=0; j<arr.length; j++)
+                    for (let j=arr.length-1; j>=0; j--)
                     {
                         let nextEle=null;
                         if (j==0)
@@ -142,7 +142,7 @@ function detectChanges(){
                         else{
                             nextEle=clone(elem);
                             nextEle.removeAttribute("data-for","");
-                            parent.appendChild(nextEle);
+                            parent.insertBefore(nextEle,elem.nextSibling);
                             nextEle.setAttribute("manipulated",__getUniqueID(elem));
                         }
                         let childElems=nextEle.querySelectorAll("[data-key]");
@@ -288,15 +288,6 @@ function __renderText(elem){
 }
 
 document.addEventListener("DOMContentLoaded",function(){
-    assign("skills",[
-        { "skillname":"HTML & Javascript", "rating":"95%", "delay":"100" },
-        { "skillname":"C#", "rating":"80%", "delay":"300" },
-        { "skillname":"Angular", "rating":"70%", "delay":"200" },
-        { "skillname":"ASP.NET Core", "rating":"70%", "delay":"400" },
-        { "skillname":"MongoDB", "rating":"50%", "delay": 500},
-        { "skillname":"Team work", "rating":"100%", "delay": 300},
-        { "skillname":"Quick learning", "rating":"80%", "delay": 200}
-    ]);
     GET("data/skills.json", function (json){
         assign("skills", JSON.parse(json));
         debounce(detectChanges,250);
