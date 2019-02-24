@@ -5,23 +5,32 @@ var __dataObject={};
 var __tempData="";
 var __debounceTimer={};
 var __pendingRenderNodes=[];
+var __mainNode;
+var __elemCache={};
 
 // Random unique ID
 var __char="qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
 function __generateUniqueID(elem){
-    let time=Math.round((new Date()).getTime()/1000);
-    let char=Math.floor(Math.random()*__char.length);
-    let rndChar="";
-    while (rndChar.length<=5){
-        rndChar+=__char[char];
-        char=Math.floor(Math.random()*__char.length);
-    }
-    elem.setAttribute("_js_content",rndChar+time);
+    resolve(function(){
+        let time=Math.round((new Date()).getTime()/1000);
+        let char=Math.floor(Math.random()*__char.length);
+        let rndChar="";
+        while (rndChar.length<=5){
+            rndChar+=__char[char];
+            char=Math.floor(Math.random()*__char.length);
+        }
+        elem.setAttribute("_js_content",rndChar+time);
+    },false);
 }
 function __getUniqueID(elem){
     if (elem.hasAttribute("_js_content"))
         return elem.getAttribute("_js_content");
     return null;
+}
+function __findElemByUniqueID(uniqueID){
+    if (!__elemCache[uniqueID])
+        __elemCache[uniqueID]=__mainNode.querySelector("[_js_content="+uniqueID+"]");
+    return __elemCache[uniqueID];
 }
 function clone(elem){
     let node= elem.cloneNode(true);
@@ -62,11 +71,13 @@ function isDataChanged(){
 // Async resolve a function
 function resolve(func, async)
 {
+    if (!__mainNode)
+        __mainNode=document.querySelector("#main");
     if (async)
         setTimeout(function(){
-            func.call(document.querySelector("#main"));
+            func.call(__mainNode);
         },0);
-    else func.call(document.querySelector("#main"));
+    else func.call(__mainNode);
 }
 
 // Toggle class
@@ -144,19 +155,9 @@ function detectChanges(){
                                     {
                                         childElems[k].dataset.delay=arr[j][childElems[k].dataset["delaykey"]];
                                     }
-                                    let delayTime=childElems[k].dataset.delay?+childElems[k].dataset.delay:100;
-                                    if (parent.dataset.delay)
-                                        delayTime += + parent.dataset.delay + 400;
-                                    var elemTop=elem.getBoundingClientRect().top +this.scrollTop;
-                                    if (elemTop<scrollTop || elemTop>screenView)
-                                    {
-                                        target.dataset["styleValue"]=value;
-                                        __pendingRenderNodes.push(target);
-                                    }
-                                    else
-                                        delay(function(){
-                                            target.style[target.dataset.style]=value;
-                                        }, delayTime);
+                                    else childElems[k].dataset.delay="100";
+                                    target.dataset["styleValue"]=value;
+                                    target.setAttribute("sync-render",__getUniqueID(elem));
                                 }
                                 else
                                     childElems[k].innerHTML=arr[j][childElems[k].dataset.key];
@@ -182,6 +183,24 @@ function detectChanges(){
             let textElems=this.querySelectorAll("[data-text]");
             for (let i=0; i<textElems.length; i++)
                 __renderText(textElems[i]);
+
+            let styleElems= this.querySelectorAll("[data-style]")
+                // let delayTime=childElems[k].dataset.delay?+childElems[k].dataset.delay:100;
+            for (let i=0; i<styleElems.length; i++){
+                let target=styleElems[i];
+                var elemTop=0;
+                if (target.hasAttribute("sync-render")){
+                    elemTop=__findElemByUniqueID(target.getAttribute("sync-render")).getBoundingClientRect().top +this.scrollTop;
+                }
+                else
+                    elemTop=target.getBoundingClientRect().top +this.scrollTop;
+                if (elemTop<scrollTop || elemTop>screenView)
+                {
+                    __pendingRenderNodes.push(target);
+                }
+                else if (target.hasAttribute("data-style-value"))
+                    __renderStyle(target);
+            }
         }
     },true);
 }
@@ -264,11 +283,20 @@ function __renderText(elem){
     let text=data(elem.dataset["text"]);
     if (text){
         elem.innerHTML=text;
+        elem.setAttribute("text-rendered","");
     }
 }
 
 document.addEventListener("DOMContentLoaded",function(){
-    detectChanges();
+    assign("skills",[
+        { "skillname":"HTML & Javascript", "rating":"95%", "delay":"100" },
+        { "skillname":"C#", "rating":"80%", "delay":"300" },
+        { "skillname":"Angular", "rating":"70%", "delay":"200" },
+        { "skillname":"ASP.NET Core", "rating":"70%", "delay":"400" },
+        { "skillname":"MongoDB", "rating":"50%", "delay": 500},
+        { "skillname":"Team work", "rating":"100%", "delay": 300},
+        { "skillname":"Quick learning", "rating":"80%", "delay": 200}
+    ]);
     GET("data/skills.json", function (json){
         assign("skills", JSON.parse(json));
         debounce(detectChanges,250);

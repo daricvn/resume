@@ -43,7 +43,10 @@
 </head>
 <body>
     <div id="main">
-        <div class="container">
+        <div class="loader-overlay" data-animation="hidden" data-delay="50">
+            <div class="loader-img"></div>
+        </div>
+        <div class="container" data-delay="400">
             <div class="text-white text-shadow depth-1 verdana" style="overflow:hidden; padding: 4px;">
                 <div class="avatar float-left zoom-in" data-animation="zoom-in" data-delay="50"></div>
                 <div class="info float-left no-select" style="padding-left: 25px; padding-top: 25px;">
@@ -77,15 +80,20 @@
             </div>
             <div class="desc margin-top margin-large arial" style="width: 100%;">
                 <div class="row">
-                    <div class="col animation-box slow content-box s12 l8 white center hidden-bottom" 
-                        data-animation="hidden-bottom" data-delay="1200" style="height: 1000px;">
+                    <div class="col outline-box animation-box slow content-box s12 l8 white center hidden-bottom" 
+                        data-animation="hidden-bottom" data-delay="1200" style="height: 1000px; padding-left: 25px;">
                         <h3 class="upper-case" data-text="text.about"></h3>
                         <div class="row center animation-box shorten-x" data-animation="shorten-x"
                             data-delay="500">
-                            <h6 class="light-weight" data-text="text.summarydesc">Some summary</h6>
+                            <h6 class="light-weight" data-text="text.summarydesc"></h6>
+                        </div>
+                        <div class="row left">
+                            <h5 data-text="text.workexperience" class="text-field hidden-right"
+                                data-animation="hidden-right" data-delay="1000">Work Experience</h5><br>
+                            <div class="col s6 animation-box zoom-in" data-animation="zoom-in" data-delay="800" data-for="workexp" ></div>
                         </div>
                     </div>
-                    <div class="col animation-box slow content-box white s6 l4 float-left flip-h-out" style="height: auto; padding-left: 21px;"
+                    <div class="col outline-box animation-box slow content-box white s6 l4 float-left flip-h-out" style="height: auto; padding-left: 21px;"
                         data-animation="flip-h-out" data-delay="1500">
                         <div class="full-width center">
                             <h3 class="upper-case" data-text="text.skills"></h3>
