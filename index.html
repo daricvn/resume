@@ -49,7 +49,7 @@
                 <div class="info float-left no-select" style="padding-left: 25px; padding-top: 25px;">
                     <div class="text-field hidden-right" data-animation="hidden-right" data-delay="0">
                         <i class="material-icons left large float-left">account_circle</i>
-                        <span class="bold" data-text="fullname">Fullname: </span>
+                        <span class="bold" data-text="text.fullname"></span>
                         Darick Nguyễn
                     </div><br />
                     <div class="text-field hidden-right margin-left margin-ratio no-margin-on-medium" data-animation="hidden-right" data-delay="300">
@@ -59,12 +59,12 @@
                     </div><br />
                     <div class="text-field hidden-right margin-left margin-large margin-ratio no-margin-on-medium"  data-animation="hidden-right" data-delay="500">
                         <i class="material-icons left large float-left">mail</i>
-                        <span class="bold" data-text="email">Email: </span>
+                        <span class="bold" data-text="text.email"></span>
                         <a href="mailto:daricvn@gmail.com" style="color: lightblue">daricvn@gmail.com</a>
                     </div><br />
                     <div class="text-field hidden-right margin-left margin-ratio no-margin-on-medium"  data-animation="hidden-right" data-delay="700">
                         <i class="material-icons left large float-left">local_phone</i>
-                        <span class="bold" data-text="phone">Phone: </span>
+                        <span class="bold" data-text="text.phone"></span>
                         +8485.885.6960
                     </div>
                     <div class="job-title hidden-right"  data-animation="hidden-right" data-delay="900">
@@ -79,12 +79,16 @@
                 <div class="row">
                     <div class="col animation-box slow content-box s12 l8 white center hidden-bottom" 
                         data-animation="hidden-bottom" data-delay="1200" style="height: 1000px;">
-                        <h3 class="upper-case">ABOUT</h3>
+                        <h3 class="upper-case" data-text="text.about"></h3>
+                        <div class="row center animation-box shorten-x" data-animation="shorten-x"
+                            data-delay="500">
+                            <h6 class="light-weight" data-text="text.summarydesc">Some summary</h6>
+                        </div>
                     </div>
                     <div class="col animation-box slow content-box white s6 l4 float-left flip-h-out" style="height: auto; padding-left: 21px;"
                         data-animation="flip-h-out" data-delay="1500">
                         <div class="full-width center">
-                            <h3 class="upper-case">SKILLS</h3>
+                            <h3 class="upper-case" data-text="text.skills"></h3>
                         </div>
                         <div class="row" data-for="skills">
                             <h6 class="upper-case" data-key="skillname"></h6>

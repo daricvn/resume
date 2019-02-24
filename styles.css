@@ -65,6 +65,10 @@ h6{
     margin: 10pt 0;
 }
 
+.light-weight{
+    font-weight: 200;
+}
+
 .block{
     display: block;
 }

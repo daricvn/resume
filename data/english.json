@@ -1,0 +1,13 @@
+{
+    "fullname":"Full name: ",
+    "email": "Email: ",
+    "phone": "Phone: ",
+    "skills":"SKILLS",
+    "about":"ABOUT",
+    "workexperience":"Work Experience",
+    "education":"Education",
+    "organization":"Organization",
+    "language":"Language",
+    "summarydesc":"Fullstack developer who have experienced in Web Development, Angular, WinForms, ASP.NET Core, VueJS, Chromify, MongoDB and SQL",
+    "year":"year"
+}

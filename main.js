@@ -6,8 +6,17 @@ var __pendingRenderNodes=[];
 function assign(key, data){
     __dataObject[key]=data;
 }
-function data(){
-    return __dataObject;
+function data(key){
+    if (key.indexOf(".")<0)
+        return __dataObject[key];
+    else{
+        var child=key.split(".");
+        var result=__dataObject[child[0]];
+        for (let i=1; i< child.length; i++)
+            if (result)
+                result=result[child[i]];
+        return result;
+    }
 }
 function isDataChanged(){
     let data=JSON.stringify(__dataObject);
@@ -63,12 +72,12 @@ function detectChanges(){
         if (isDataChanged()){
             let forElems = this.querySelectorAll("[data-for]");
             for (let i=0; i<forElems.length; i++)
-                if (data()[forElems[i].dataset["for"]] && Array.isArray(data()[forElems[i].dataset["for"]]))
+                if (data(forElems[i].dataset["for"]) && Array.isArray(data(forElems[i].dataset["for"])))
                 {
                     let elem=forElems[i];
                     let parent=elem.parentNode;
                     let sameChild=parent.querySelectorAll("[data-for="+elem.dataset.for+"]");
-                    let arr=data()[elem.dataset["for"]];
+                    let arr=data(elem.dataset["for"]);
                     for (let j=0; j<arr.length; j++)
                     {
                         let nextEle=null;
@@ -127,7 +136,7 @@ function detectChanges(){
 }
 
 function __scrollSpy(e){
-    let target=e.target;
+    let target=document.querySelector("div#main");
     debounce(function scrollSpy(){
         if (__pendingRenderNodes && __pendingRenderNodes.length>0){
             let offsetX=target.scrollLeft;
@@ -147,6 +156,7 @@ function __scrollSpy(e){
         }
     },50);
 }
+
 function __renderAnimation(elem, reduce){
     let animationKey=elem.dataset["animation"];
     elem.removeAttribute("data-animation");
@@ -154,7 +164,16 @@ function __renderAnimation(elem, reduce){
         if (elem.dataset["delay"])
         {
             delayTime=+elem.dataset["delay"];
-            elem.removeAttribute("data-delay");
+        }
+    if (elem.parentNode)
+        {
+            let parent=elem.parentNode;
+            while (parent && parent.tagName!="body" && parent.id!="main")
+            {
+                if (parent.dataset && parent.dataset.delay)
+                    delayTime+=+parent.dataset.delay;
+                parent=parent.parentNode;
+            }
         }
     if (reduce)
         delayTime=delayTime*reduce;
@@ -163,7 +182,7 @@ function __renderAnimation(elem, reduce){
     }, delayTime);
 }
 function __renderText(elem){
-    let text=data()[elem.dataset["text"]];
+    let text=data(elem.dataset["text"]);
     if (text){
         elem.innerHTML=text;
     }
@@ -173,8 +192,13 @@ document.addEventListener("DOMContentLoaded",function(){
     detectChanges();
     GET("data/skills.json", function (json){
         assign("skills", JSON.parse(json));
-        debounce(detectChanges,200);
+        debounce(detectChanges,250);
+    });
+    GET("data/english.json", function (json){
+        assign("text", JSON.parse(json));
+        debounce(detectChanges,250);
     });
     document.querySelector("#main").addEventListener("scroll",__scrollSpy);
+    window.addEventListener("resize",__scrollSpy);
 });
 
