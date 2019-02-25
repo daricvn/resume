@@ -13,7 +13,7 @@
             "technology":"ASP.NET WebForms to MVC, NetAdvantage to Infragistics",
             "position":"Consultant",
             "site":"TMA Solutions",
-            "desc":"Upgrade a large of old controls in this project to fully compatible with the new one Infragistic 2018. Implements new features and fix old bugs and we must to keep the old structure one."
+            "desc":"Upgrade a large of old controls in this project to fully compatible with the new one Infragistic 2018. My responsibility is to implements new features and fix old bugs and I must to keep the old structure one and stablizate ."
         }
     ],
     "education":[
@@ -22,5 +22,9 @@
             "course":"2014-2018",
             "level":"Bachelor of Information Technology"
         }
+    ],
+    "language":[
+        { "speak":"English", "level": "Intermediate", "delay":"600" },
+        { "speak":"Vietnamese", "level":"Native speaker", "delay":"400"}
     ]
 }

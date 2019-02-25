@@ -147,21 +147,40 @@ function detectChanges(){
                         }
                         let childElems=nextEle.querySelectorAll("[data-key]");
                         for (let k=0; k< childElems.length; k++){
-                            if (arr[j][childElems[k].dataset.key])
-                                if (childElems[k].dataset.style){
-                                    let value=arr[j][childElems[k].dataset.key]+"";
+                            if (childElems[k].dataset["key"] && arr[j][childElems[k].dataset.key]){
+                                if (childElems[k].dataset.style || childElems[k].dataset.animation){
                                     let target=childElems[k];
                                     if (childElems[k].dataset["delaykey"] && arr[j][childElems[k].dataset["delaykey"]])
                                     {
                                         childElems[k].dataset.delay=arr[j][childElems[k].dataset["delaykey"]];
                                     }
                                     else childElems[k].dataset.delay="100";
-                                    target.dataset["styleValue"]=value;
+                                    if (childElems[k].dataset.style){
+                                        let value=arr[j][childElems[k].dataset.key]+"";
+                                        target.dataset["styleValue"]=value;
+                                    }
                                     target.setAttribute("sync-render",__getUniqueID(elem));
                                 }
                                 else
                                     childElems[k].innerHTML=arr[j][childElems[k].dataset.key];
                             }
+                            else 
+                            if (arr[j][childElems[k].dataset.delaykey]){
+                                if (childElems[k].dataset.style || childElems[k].dataset.animation){
+                                    let target=childElems[k];
+                                    if (childElems[k].dataset["delaykey"] && arr[j][childElems[k].dataset["delaykey"]])
+                                    {
+                                        childElems[k].dataset.delay=arr[j][childElems[k].dataset["delaykey"]];
+                                    }
+                                    else childElems[k].dataset.delay="100";
+                                    if (childElems[k].dataset.style){
+                                        let value=arr[j][childElems[k].dataset.key]+"";
+                                        target.dataset["styleValue"]=value;
+                                    }
+                                    target.setAttribute("sync-render",__getUniqueID(elem));
+                                }
+                            }
+                        }
                     }
                     if (sameChild.length>arr.length-1)
                         for (let j=arr.length; j<=sameChild.length; j++)
@@ -172,7 +191,11 @@ function detectChanges(){
             for (let i=0; i<animationElems.length; i++)
             {
                 let elem=animationElems[i];
-                let currentOffset=elem.getBoundingClientRect().top + this.scrollTop;
+                let currentOffset=0;
+                if (elem.hasAttribute("sync-render"))
+                    currentOffset=__findElemByUniqueID(elem.getAttribute("sync-render")).getBoundingClientRect().top + this.scrollTop;
+                else
+                    currentOffset=elem.getBoundingClientRect().top + this.scrollTop;
                 if (currentOffset<scrollTop || currentOffset>screenView)
                     __pendingRenderNodes.push(elem);
                 else{
@@ -288,7 +311,6 @@ function __renderText(elem){
 }
 
 function __renderDripple(e){
-    console.log(e);
     if (e.target.className.indexOf("content-box")<0){
         let x=e.clientX;
         let y=e.clientY;
