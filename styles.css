@@ -400,6 +400,43 @@ div#main{
     .col.full-on-medium{
         width: 100%;
     }
+    
+    .col.m1{
+        width: 8.3%;
+    }
+    .col.m2{
+        width: 16.6%;
+    }
+    .col.m3{
+        width: 25%;
+    }
+    .col.m4{
+        width: 33.3%;
+    }
+    .col.m5{
+        width: 41.6%;
+    }
+    .col.m6{
+        width: 50%;
+    }
+    .col.m7{
+        width: 58.3%;
+    }
+    .col.m8{
+        width: 66.6%;
+    }
+    .col.m9{
+        width: 75%;
+    }
+    .col.m10{
+        width: 83.3%;
+    }
+    .col.m11{
+        width: 91.7%;
+    }
+    .col.m12{
+        width: 100%;
+    }
 }
 
 @media screen and (max-width: 584px){
@@ -421,6 +458,43 @@ div#main{
     .info{
         font-size: 11pt;
         padding-left: 3px !important;
+    }
+    
+    .col.s1{
+        width: 8.3%;
+    }
+    .col.s2{
+        width: 16.6%;
+    }
+    .col.s3{
+        width: 25%;
+    }
+    .col.s4{
+        width: 33.3%;
+    }
+    .col.s5{
+        width: 41.6%;
+    }
+    .col.s6{
+        width: 50%;
+    }
+    .col.s7{
+        width: 58.3%;
+    }
+    .col.s8{
+        width: 66.6%;
+    }
+    .col.s9{
+        width: 75%;
+    }
+    .col.s10{
+        width: 83.3%;
+    }
+    .col.s11{
+        width: 91.7%;
+    }
+    .col.s12{
+        width: 100%;
     }
 }
 

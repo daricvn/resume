@@ -81,19 +81,47 @@
             <div class="desc margin-top margin-large arial" style="width: 100%;">
                 <div class="row">
                     <div class="col outline-box animation-box slow content-box s12 l8 white center hidden-bottom" 
-                        data-animation="hidden-bottom" data-delay="1200" style="height: 1000px; padding-left: 25px;">
+                        data-animation="hidden-bottom" data-delay="1200" style="height: auto; padding-left: 25px;">
                         <h3 class="upper-case" data-text="text.about"></h3>
                         <div class="row center animation-box shorten-x" data-animation="shorten-x"
                             data-delay="500">
                             <h6 class="light-weight" data-text="text.summarydesc"></h6>
+                            <br><br>
                         </div>
+                        <!-- Work experience section  -->
                         <div class="row left">
                             <h5 data-text="text.workexperience" class="text-field hidden-right"
-                                data-animation="hidden-right" data-delay="1000">Work Experience</h5><br>
-                            <div class="col s6 animation-box zoom-in" data-animation="zoom-in" data-delay="800" data-for="workexp" ></div>
+                                data-animation="hidden-right" style="text-decoration: underline" data-delay="1000">Work Experience</h5><br>
+                            <blockquote class="zoom-in animation-box" style="border-left: 6px solid green; padding-left: 21px;" data-animation="zoom-in" data-delay="1200">
+                                <div class="col s12" style="margin-bottom: 15px; " data-for="info.workexp" >
+                                    <div class="row" data-key="project" style="font-weight: bold">
+                                    </div>
+                                    <div style="color: gray; font-size: 10pt; margin-left: 5%;"><span data-key="year"></span> <span data-text="text.year"></span><br>
+                                    <span data-text="text.site"></span>: <span data-key="site"></span> <br>
+                                    <span data-text="text.position"></span>: <span data-key="position"></span><br>
+                                    <span style="font-weight: bold" data-text="text.technology"></span>: <span data-key="technology"></span></div>
+                                    <br />
+                                    <span data-key="desc"></span>
+                                    <hr>
+                                </div>
+                            </blockquote>
+                        </div>
+                        <!-- Education section -->
+                        <div class="row left">
+                            <h5 data-text="text.education" class="text-field hidden-right"
+                                data-animation="hidden-right" style="text-decoration: underline" data-delay="2000">Education</h5><br>
+                            <blockquote>
+                                <div class="col s12 m12 l6 hidden-right animation-box fast" data-animation="hidden-right" data-delay="1500" style="padding: 20px 25px; box-sizing: border-box; border: 1px solid lightgray; border-right: 12px solid orange; padding-top: 5px;" data-for="info.education">
+                                    <p style="font-weight: bold" data-key="site"></p>
+                                    <div style="color: gray; font-size: 10pt">
+                                        <span style="font-weight: bold" data-text="text.course"></span>: <span data-key="course"></span><br>
+                                        <span style="font-weight: bold" data-text="text.level"></span>: <span data-key="level"></span>
+                                    </div>
+                                </div>
+                            </blockquote>
                         </div>
                     </div>
-                    <div class="col outline-box animation-box slow content-box white s6 l4 float-left flip-h-out" style="height: auto; padding-left: 21px;"
+                    <div class="col outline-box animation-box slow content-box white s12 m6 l4 float-left flip-h-out" style="height: auto; padding-left: 21px;"
                         data-animation="flip-h-out" data-delay="1500">
                         <div class="full-width center">
                             <h3 class="upper-case" data-text="text.skills"></h3>

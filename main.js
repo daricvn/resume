@@ -290,11 +290,15 @@ function __renderText(elem){
 document.addEventListener("DOMContentLoaded",function(){
     GET("data/skills.json", function (json){
         assign("skills", JSON.parse(json));
-        debounce(detectChanges,250);
+        debounce(detectChanges,350);
     });
     GET("data/english.json", function (json){
         assign("text", JSON.parse(json));
-        debounce(detectChanges,250);
+        debounce(detectChanges,350);
+    });
+    GET("data/info.json", function (json){
+        assign("info", JSON.parse(json));
+        debounce(detectChanges,350);
     });
     document.querySelector("#main").addEventListener("scroll",__scrollSpy);
     window.addEventListener("resize",__scrollSpy);
