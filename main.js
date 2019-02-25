@@ -234,7 +234,7 @@ function __scrollSpy(e){
         if (__pendingRenderNodes && __pendingRenderNodes.length>0){
             let offsetX=target.scrollLeft;
             let scrollTop= target.scrollTop;
-            let screenView= (scrollTop + window.innerHeight);
+            let screenView= (scrollTop + window.innerHeight)*1.1;
             
             for (let i=0; i<__pendingRenderNodes.length; i++)
             {
