@@ -384,6 +384,7 @@ div#main{
         border-radius: 15px;
         position: absolute;
         right: 5%;
+        z-index: 5;
     }
 
 

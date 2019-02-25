@@ -297,7 +297,6 @@ function __renderDripple(e){
         dripple.style.left=x+"px";
         dripple.className="dripple";
         document.body.appendChild(dripple);
-        e.preventDefault();
         delay(function(){
             dripple.style.transform="scale(1)";
             dripple.style.opacity="0.6";
@@ -312,6 +311,7 @@ function __renderDripple(e){
 }
 
 document.addEventListener("DOMContentLoaded",function(){
+    detectChanges();
     GET("data/skills.json", function (json){
         assign("skills", JSON.parse(json));
         debounce(detectChanges,350);
