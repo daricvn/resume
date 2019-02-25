@@ -2,10 +2,10 @@
     "workexp":[
         { "project":"Online media player website", 
             "year":1,
-            "technology":"ASP.NET Core 2.1, Angular, MongoDB, SignalR",
+            "technology":"ASP.NET Core 2.1, Angular, MongoDB, SignalR, JWT & RSA Encryption",
             "position":"Developer",
             "site":"Freelancer",
-            "desc":"This is a website for playing media and media streaming using ASP.NET Core and Angular. Main developer for this project should maintain content and performance for this page, secure user information."
+            "desc":"This is a website for playing media and media streaming using ASP.NET Core and Angular. Main developer for this project should maintain content and performance for this page, secure all registered user information."
         },
         {
             "project":"Upgrade NetAdvantage Website",
@@ -13,7 +13,7 @@
             "technology":"ASP.NET WebForms to MVC, NetAdvantage to Infragistics",
             "position":"Consultant",
             "site":"TMA Solutions",
-            "desc":"Upgrade a large of old controls in this project to fully compatible with the new one Infragistic 2018. My responsibility is to implements new features and fix old bugs and I must to keep the old structure one and stablizate ."
+            "desc":"Upgrade a large of old controls in this project to fully compatible with the new one Infragistic 2018. My responsibility is to implements new features and fix old bugs and I must to keep the old structure but also keep it more stable."
         }
     ],
     "education":[
