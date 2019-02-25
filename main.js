@@ -119,7 +119,7 @@ function detectChanges(){
     resolve(function (){
         if (isDataChanged()){
             let scrollTop= this.scrollTop;
-            let screenView= (this.scrollTop + window.innerHeight);
+            let screenView= (this.scrollTop + window.innerHeight)+150;
             let forElems = this.querySelectorAll("[data-for]");
             for (let i=0; i<forElems.length; i++)
                 if (data(forElems[i].dataset["for"]) && Array.isArray(data(forElems[i].dataset["for"])))
