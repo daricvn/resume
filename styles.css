@@ -204,7 +204,7 @@ div#main{
     transform: translate(-1px,-1px);
 }
 .light-gradient{
-    background: linear-gradient(to top left, rgba(128,128,128,0.07),transparent);
+    background: linear-gradient(to top left, rgba(128,128,128,0.1),transparent);
 }
 .text-field{
     display: inline-block;
@@ -450,18 +450,18 @@ div#main{
     }
     
     .avatar{
-        border: 8px solid white;
-        width: 104px;
-        height: 106px;
+        border: 6px solid white;
+        width: 94px;
+        height: 96px;
         display: block;
         margin: 0 auto;
         float: none;
         border-radius: 15px;
         position: absolute;
-        right: 3%;
+        right: 2%;
     }
     .info{
-        font-size: 11pt;
+        font-size: 10.5pt;
         padding-left: 3px !important;
     }
     
