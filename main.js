@@ -287,6 +287,30 @@ function __renderText(elem){
     }
 }
 
+function __renderDripple(e){
+    console.log(e);
+    if (e.target.className.indexOf("content-box")<0){
+        let x=e.clientX;
+        let y=e.clientY;
+        let dripple=document.createElement("div");
+        dripple.style.top=y+"px";
+        dripple.style.left=x+"px";
+        dripple.className="dripple";
+        document.body.appendChild(dripple);
+        e.preventDefault();
+        delay(function(){
+            dripple.style.transform="scale(1)";
+            dripple.style.opacity="0.6";
+            delay(function(){
+                dripple.style.opacity="0";
+            },300);
+            delay(function(){
+                document.body.removeChild(dripple);
+            },1000);
+        },30);
+    }
+}
+
 document.addEventListener("DOMContentLoaded",function(){
     GET("data/skills.json", function (json){
         assign("skills", JSON.parse(json));
@@ -302,5 +326,8 @@ document.addEventListener("DOMContentLoaded",function(){
     });
     document.querySelector("#main").addEventListener("scroll",__scrollSpy);
     window.addEventListener("resize",__scrollSpy);
+    
+    document.querySelector(".waves-effect").addEventListener("click",__renderDripple,false);
+    document.querySelector(".waves-effect").addEventListener("dblclick",__renderDripple,false);
 });
 

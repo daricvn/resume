@@ -289,6 +289,7 @@ div#main{
 
 .col.content-box{
     padding: 12px 20px;
+    z-index: 10;
 }
 
 .col.s1{
@@ -542,3 +543,16 @@ div#main{
     transition-property: opacity, transform;
 }
 
+.dripple{
+    width: 200px;
+    height: 200px;
+    margin-left: -100px;
+    margin-top: -100px;
+    transition: 0.6s transform ease-in, 0.3s opacity ease-in;
+    opacity: 0;
+    background: rgba(255,255,255,0.8);
+    position: absolute;
+    transform: scale(0.2);
+    z-index: 0;
+    border-radius: 50%;
+}
