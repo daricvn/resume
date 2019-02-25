@@ -558,3 +558,32 @@ div#main{
     z-index: 0;
     border-radius: 50%;
 }
+
+.watermark{
+    position:fixed;
+    width: auto;
+    height: auto;
+    bottom: 0;
+    right:0;
+    z-index: 10000;
+}
+.watermark > span{
+    position: fixed;
+    font-size: 12pt;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color: white;
+    text-shadow: 2px 0px black, 0px 2px black, -1px 0px black, 0px -1px black;
+    bottom: 15px;
+    right: 20px;
+    z-index: 9900;
+}
+.watermark .background{
+    background: rgba(255,45,45,0.95);
+    width: 200px;
+    height: 140px;
+    left: 100px;
+    top: 70px;
+    transform: rotate(-35deg);
+    position: relative;
+    box-shadow: -1px -1px 1px rgba(0,0,0,0.3);
+}
