@@ -311,7 +311,6 @@ function __renderDripple(e){
 }
 
 document.addEventListener("DOMContentLoaded",function(){
-    detectChanges();
     GET("data/skills.json", function (json){
         assign("skills", JSON.parse(json));
         debounce(detectChanges,350);
